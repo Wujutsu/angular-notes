@@ -6,9 +6,9 @@ import { Note } from './models/note.model';
 })
 export class NoteService {
   private notes: Note[] = [
-    {id:1, title:'Note1', content:'blabla'},
-    {id:2, title:'Note2', content:'werwerwer'},
-    {id:3, title:'Note3', content:'jwerji wjerj jwer jnwer '},
+    {id:1, title:'Note1', body:'blabla'},
+    {id:2, title:'Note2', body:'werwerwer'},
+    {id:3, title:'Note3', body:'jwerji wjerj jwer jnwer '},
   ];
 
   constructor() { }

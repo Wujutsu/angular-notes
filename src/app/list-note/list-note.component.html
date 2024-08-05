@@ -2,7 +2,7 @@
   <div class="col-md-4" *ngFor="let note of notes">
     <div class="bg-warning mb-3">
       <h3>{{ note.title }}</h3>
-      <p>{{ note.content }}</p>
+      <p>{{ note.body }}</p>
       <button (click)="deleteNote(note.id)">Delete</button>
     </div>
   </div>

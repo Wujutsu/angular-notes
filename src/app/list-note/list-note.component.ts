@@ -8,16 +8,23 @@ import { Note } from '../models/note.model';
   styleUrl: './list-note.component.scss'
 })
 export class ListNoteComponent implements OnInit {
-  notes!: Note[];
+  notes: Note[] = [];
 
   constructor(private noteService: NoteService) { }
 
   ngOnInit(): void {
-    this.notes = this.noteService.getNotes();
+    this.noteService.getNotes().subscribe(notes => {
+      this.notes = notes;
+    })
   }
 
   deleteNote(id: number) {
-    this.noteService.deleteNote(id);
-    this.notes = this.noteService.getNotes();
+    this.noteService.deleteNote(id).subscribe(() => {
+      this.notes = this.notes.filter(note => id !== note.id);
+    })
+  }
+
+  onNoteAdded(newNote: Note) {
+    this.notes.push(newNote);
   }
 }

@@ -1,5 +1,11 @@
-<div>
-  <input type="text" name="title" [(ngModel)]="title">
-  <textarea name="body" [(ngModel)]="body"></textarea>
-  <button (click)="addNote()">Add note</button>
-</div>
+<form [formGroup]="noteForm" (ngSubmit)="addNote()">
+  <div>
+    <label for="title">Title</label>
+    <input type="text" class="form-control" id="title" name="title" formControlName="title" placeholder="Title" aria-required="true">
+  </div>
+  <div>
+    <label for="body">Content</label>
+    <textarea type="text" class="form-control" id="body" name="body" formControlName="body" placeholder="Content" aria-required="true"></textarea>
+  </div>
+  <input type="submit" class="btn btn-primary mt-2" [disabled]="noteForm.invalid" value="Add a note">
+</form>

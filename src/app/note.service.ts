@@ -1,27 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Note } from './models/note.model';
+import { HttpClient } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NoteService {
-  private notes: Note[] = [
-    {id:1, title:'Note1', body:'blabla'},
-    {id:2, title:'Note2', body:'werwerwer'},
-    {id:3, title:'Note3', body:'jwerji wjerj jwer jnwer '},
-  ];
+  private apiUrl = 'https://jsonplaceholder.typicode.com/posts';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  getNotes() {
-    return this.notes;
+  getNotes(): Observable<Note[]> {
+    return this.http.get<Note[]>(this.apiUrl).pipe(
+      map(notes => notes.map(note => ({
+        id: note.id,
+        title: note.title,
+        body: note.body
+      })))
+    )
   }
 
-  addNote(note: Note) {
-    this.notes.push(note);
+  addNote(note: Note): Observable<Note> {
+    return this.http.post<Note>(this.apiUrl, note);
   }
 
-  deleteNote(id: number) {
-    this.notes = this.notes.filter(note => id !== note.id);
+  deleteNote(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
